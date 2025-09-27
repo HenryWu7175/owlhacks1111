@@ -1,5 +1,7 @@
 package edu.temple.myapplication
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -12,25 +14,43 @@ class UploadActivity : AppCompatActivity() {
     private lateinit var tvZone: TextView
     private lateinit var tvInfo: TextView
     private lateinit var imgPreview: ImageView
-    private var referenceUri: android.net.Uri? = null
-    private var afterUri: android.net.Uri? = null
+    private var referenceUri: Uri? = null
+    private var expectAfter: Boolean = false
+    private lateinit var zone: String
 
     private val pickImage = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri ->
-        if (uri != null) {
-            imgPreview.setImageURI(uri)
-            tvInfo.text = "Image selected!"
+        uri ?: return@registerForActivityResult
+        imgPreview.setImageURI(uri)
 
-            // 🧠 If no reference exists yet, save it
-            if (referenceUri == null) {
-                referenceUri = uri
-                tvInfo.text = "Reference image saved! Upload the 'after' image next."
-            }
-            // ✅ If reference already exists, treat this as after image
-            else {
-                afterUri = uri
-                compareImages()
+        if (!expectAfter) {
+            // ✅ This is the clean reference upload
+            ZoneStorage.saveReference(this, zone, uri)
+            tvInfo.text = "Reference saved! Starting timer..."
+
+            // 🚀 Go to the 10-minute task screen
+            startActivity(
+                Intent(this, TaskReadyActivity::class.java)
+                    .putExtra("zone", zone)
+            )
+            finish()
+        } else {
+            // ✅ After photo upload → compare with reference
+            val refUri = ZoneStorage.getReference(this, zone)
+            if (refUri != null) {
+                val score = Scoring.score(
+                    Scoring.loadBitmap(this, refUri),
+                    Scoring.loadBitmap(this, uri)
+                )
+                if (score >= 65) {
+                    tvInfo.text = "✅ Looks good! +10 points!"
+                    PointsManager.add(this, 10)
+                } else {
+                    tvInfo.text = "❌ Not quite right, try again!"
+                }
+            } else {
+                tvInfo.text = "⚠️ No reference found!"
             }
         }
     }
@@ -39,29 +59,18 @@ class UploadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
 
+        zone = intent.getStringExtra("zone") ?: "Unknown"
+        expectAfter = intent.getBooleanExtra("expectAfter", false)
+
         tvZone = findViewById(R.id.tvZone)
         tvInfo = findViewById(R.id.tvInfo)
         imgPreview = findViewById(R.id.imgPreview)
 
-        val zone = intent.getStringExtra("zone") ?: "Unknown"
-        tvZone.text = "Upload for: $zone"
+        tvZone.text = if (expectAfter) "Upload AFTER photo for $zone"
+        else "Upload CLEAN reference for $zone"
 
         findViewById<Button>(R.id.btnPick).setOnClickListener {
             pickImage.launch("image/*")
-        }
-    }
-
-    private fun compareImages() {
-        // 🧠 Replace this with real AI or vision API comparison later
-        // For now, just simulate a random "score"
-        val looksRight = (0..1).random() == 1
-
-        if (looksRight) {
-            tvInfo.text = "✅ Looks right! You earned 10 points 🎉"
-            // 🏆 Add points
-            PointsManager.add(this, 10)
-        } else {
-            tvInfo.text = "❌ That doesn't look right. Try again!"
         }
     }
 }

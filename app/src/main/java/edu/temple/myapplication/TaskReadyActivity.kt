@@ -12,14 +12,18 @@ class TaskReadyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_task_ready)
 
         val zone = intent.getStringExtra("zone") ?: "Unknown"
+
+        // Update message
         findViewById<TextView>(R.id.tvMsg).text =
             "You have 10 minutes to complete: $zone.\nPlease don’t leave this session."
 
+        // When user clicks Begin → go to TaskInProgressActivity
         findViewById<Button>(R.id.btnBegin).setOnClickListener {
             startActivity(
                 Intent(this, TaskInProgressActivity::class.java)
                     .putExtra("zone", zone)
             )
+            finish()
         }
     }
 }
