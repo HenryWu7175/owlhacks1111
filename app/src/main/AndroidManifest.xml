@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
 
-        <!-- 🚀 This is your main launcher screen -->
+        <!-- 🚀 Main launcher screen -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -22,8 +22,14 @@
             </intent-filter>
         </activity>
 
-        <!-- ✅ Add this new line to register UploadActivity -->
+        <!-- ✅ Upload image screen -->
         <activity android:name=".UploadActivity" />
+
+        <!-- ✅ Task ready message screen -->
+        <activity android:name=".TaskReadyActivity" />
+
+        <!-- ✅ Task in progress (loading + timer) -->
+        <activity android:name=".TaskInProgressActivity" />
 
     </application>
 

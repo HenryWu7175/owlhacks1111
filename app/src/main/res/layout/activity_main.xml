@@ -1,55 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/main"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-            <!-- Title -->
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tasks"
-                android:textSize="48sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="32dp"/>
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Tasks"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Make Bed -->
-            <Button
-                android:id="@+id/make_bed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Make Bed"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="32dp"/>
+    <!-- Points Label -->
+    <TextView
+        android:id="@+id/tvPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Points: 0"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp" />
 
-            <!-- Table / Desk -->
-            <Button
-                android:id="@+id/table_desk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Table / Desk"
-                app:layout_constraintTop_toBottomOf="@id/make_bed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"/>
+    <!-- Make Bed -->
+    <Button
+        android:id="@+id/make_bed"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="88dp"
+        android:text="Make Bed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPoints" />
 
-            <!-- Dishes -->
-            <Button
-                android:id="@+id/dishes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dishes"
-                app:layout_constraintTop_toBottomOf="@id/table_desk"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="16dp"/>
+    <!-- Table / Desk -->
+    <Button
+        android:id="@+id/table_desk"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="72dp"
+        android:text="Table / Desk"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/make_bed" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Dishes -->
+    <Button
+        android:id="@+id/dishes"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="80dp"
+        android:text="Dishes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/table_desk" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

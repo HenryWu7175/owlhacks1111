@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical" android:padding="24dp"
-        android:layout_width="match_parent" android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <!-- ✅ Back Button -->
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Back" />
+
+        <!-- Title -->
         <TextView
             android:id="@+id/tvZone"
             android:text="Upload for:"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <!-- Image Preview -->
         <ImageView
             android:id="@+id/imgPreview"
             android:layout_width="match_parent"
@@ -22,6 +35,7 @@
             android:scaleType="centerCrop"
             android:background="#EEEEEE"/>
 
+        <!-- Pick Button -->
         <Button
             android:id="@+id/btnPick"
             android:text="Pick Photo"
@@ -29,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"/>
 
+        <!-- Info Text -->
         <TextView
             android:id="@+id/tvInfo"
             android:text="No reference saved yet."
