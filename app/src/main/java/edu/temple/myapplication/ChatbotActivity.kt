@@ -5,63 +5,57 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class ChatbotActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Make sure this matches your XML file name (activity_result.xml or activity_chatbot.xml)
+        // Must match the XML file name below
         setContentView(R.layout.activity_result)
 
-        val textView = findViewById<TextView>(R.id.textView)
+        val title = findViewById<TextView>(R.id.textView)
         val input = findViewById<EditText>(R.id.textView2)
-        val button = findViewById<Button>(R.id.button2)
+        val btnSubmit = findViewById<Button>(R.id.buttonSubmit)     // "Go"
+        val btnExamples = findViewById<Button>(R.id.buttonExamples) // "See Examples"
 
-        textView.text = "What productivity task would you like help with today?"
+        title.text = "What productivity task would you like help with today?"
 
-        button.setOnClickListener {
-            val userText = input.text?.toString()?.trim().orEmpty()
+        // "See Examples" → go to main picker screen (Bed / Desk / Dishes)
+        btnExamples.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
-            if (userText.isEmpty()) {
-                Toast.makeText(this, "Please type something like 'make bed' or 'clean dishes'.", Toast.LENGTH_SHORT).show()
+        // "Go" → route by keywords; if empty or no match, open main picker
+        btnSubmit.setOnClickListener {
+            val text = input.text?.toString()?.trim().orEmpty()
+
+            if (text.isEmpty()) {
+                startActivity(Intent(this, MainActivity::class.java))
                 return@setOnClickListener
             }
 
-            // Detect which task the user means
-            val zone = detectZone(userText)
-
-            if (zone == null) {
-                Toast.makeText(
-                    this,
-                    "Hmm, I didn’t catch that. Try mentioning 'bed', 'desk', or 'dishes'.",
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                // ✅ Launch UploadActivity with the right zone
-                val intent = Intent(this, UploadActivity::class.java)
-                intent.putExtra("zone", zone)
-                startActivity(intent)
+            when (val zone = detectZone(text)) {
+                null -> startActivity(Intent(this, MainActivity::class.java)) // no match → manual pick
+                else -> startActivity(
+                    Intent(this, UploadActivity::class.java).putExtra("zone", zone)
+                )
             }
         }
     }
 
-    // 🔍 Helper function to detect which zone the user is talking about
-    private fun detectZone(text: String): String? {
-        val t = text.lowercase()
+    /**
+     * Very forgiving keyword detector:
+     * - contains "dish" → Dishes
+     * - contains "desk" or "tabl" → Desk
+     * - contains "bed" or "bedd" → Bed
+     */
+    private fun detectZone(raw: String): String? {
+        val t = raw.lowercase()
 
-        if (listOf("bed", "bedding", "make bed", "blanket", "pillow").any { t.contains(it) }) {
-            return "Bed"
-        }
-
-        if (listOf("desk", "table", "workspace", "clean desk", "organize table").any { t.contains(it) }) {
-            return "Desk"
-        }
-
-        if (listOf("dishes", "dish", "sink", "plate", "wash", "cups").any { t.contains(it) }) {
-            return "Dishes"
-        }
+        if ("dish" in t) return "Dishes"
+        if ("desk" in t || "tabl" in t) return "Desk"
+        if ("bed" in t || "bedd" in t) return "Bed"
 
         return null
     }

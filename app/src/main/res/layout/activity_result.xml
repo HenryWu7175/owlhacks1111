@@ -6,9 +6,10 @@
     android:background="@drawable/bg_retro_desktop">
 
     <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
         android:gravity="center">
 
         <LinearLayout
@@ -42,11 +43,10 @@
             <!-- Content -->
             <LinearLayout
                 android:orientation="vertical"
+                android:padding="24dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="24dp">
+                android:layout_height="match_parent">
 
-                <!-- Header -->
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
@@ -57,7 +57,6 @@
                     android:textStyle="bold"
                     android:padding="8dp" />
 
-                <!-- Editable input -->
                 <EditText
                     android:id="@+id/textView2"
                     android:layout_width="match_parent"
@@ -69,15 +68,23 @@
                     android:background="#EEEEEE"
                     android:minLines="6" />
 
-                <!-- Action -->
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/buttonSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Go"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/retro_button"
                     android:layout_marginTop="16dp" />
+
+                <Button
+                    android:id="@+id/buttonExamples"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="See Examples"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/retro_button"
+                    android:layout_marginTop="12dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
