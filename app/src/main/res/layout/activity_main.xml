@@ -1,67 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_retro_desktop">
 
-    <!-- Title -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Tasks"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- Center the retro window and give outer padding -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:gravity="center">
 
-    <!-- Points Label -->
-    <TextView
-        android:id="@+id/tvPoints"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Points: 0"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="24dp" />
+        <!-- Retro window fills most of the screen -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/retro_window_bg">
 
-    <!-- Make Bed -->
-    <Button
-        android:id="@+id/make_bed"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="88dp"
-        android:text="Bed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPoints" />
+            <!-- Title bar -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/retro_title_bar"
+                android:paddingStart="16dp"
+                android:paddingEnd="12dp">
 
-    <!-- Table / Desk -->
-    <Button
-        android:id="@+id/table_desk"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="72dp"
-        android:text="Table / Desk"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/make_bed" />
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="KIM • Tasks"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/windowDots"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
-    <!-- Dishes -->
-    <Button
-        android:id="@+id/dishes"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="80dp"
-        android:text="Dishes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/table_desk" />
+                <!-- window control dots -->
+                <LinearLayout
+                    android:id="@+id/windowDots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <View android:layout_width="16dp" android:layout_height="16dp"
+                        android:layout_marginStart="6dp" android:background="#E35C5C"/>
+                    <View android:layout_width="16dp" android:layout_height="16dp"
+                        android:layout_marginStart="6dp" android:background="#E3D35C"/>
+                    <View android:layout_width="16dp" android:layout_height="16dp"
+                        android:layout_marginStart="6dp" android:background="#6AE35C"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Content -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="28dp"
+                android:gravity="top|center_horizontal">
+
+                <!-- Points -->
+                <TextView
+                    android:id="@+id/tvPoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Points: 0"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#222222"
+                    android:layout_marginBottom="28dp" />
+
+                <!-- Bed -->
+                <Button
+                    android:id="@+id/make_bed"
+                    android:layout_width="match_parent"
+                    android:layout_height="84dp"
+                    android:text="■  Bed"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/retro_button"
+                    android:layout_marginBottom="22dp" />
+
+                <!-- Table / Desk -->
+                <Button
+                    android:id="@+id/table_desk"
+                    android:layout_width="match_parent"
+                    android:layout_height="84dp"
+                    android:text="■  Table / Desk"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/retro_button"
+                    android:layout_marginBottom="22dp" />
+
+                <!-- Dishes -->
+                <Button
+                    android:id="@+id/dishes"
+                    android:layout_width="match_parent"
+                    android:layout_height="84dp"
+                    android:text="■  Dishes"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/retro_button" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
