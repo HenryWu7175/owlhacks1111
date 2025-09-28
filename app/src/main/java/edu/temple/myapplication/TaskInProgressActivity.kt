@@ -74,11 +74,7 @@ class TaskInProgressActivity : AppCompatActivity() {
 
                 // After timer, send user to upload the AFTER photo
                 val zone = intent.getStringExtra("zone") ?: "Unknown"
-                startActivity(
-                    Intent(this@TaskInProgressActivity, UploadActivity::class.java)
-                        .putExtra("zone", zone)
-                        .putExtra("expectAfter", true)
-                )
+                openUploadNewClean(zone)
                 finish()
             }
         }.start()

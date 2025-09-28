@@ -61,54 +61,76 @@
 
             <!-- Content -->
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="28dp"
-                android:gravity="top|center_horizontal">
+                android:gravity="top|center_horizontal"
+                android:orientation="vertical"
+                android:padding="28dp">
 
                 <!-- Points -->
                 <TextView
                     android:id="@+id/tvPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="28dp"
                     android:text="Points: 0"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
                     android:textColor="#222222"
-                    android:layout_marginBottom="28dp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <!-- Bed -->
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="326dp"
+                    android:layout_height="116dp"
+                    app:srcCompat="@mipmap/ic_launcher" />
+
+                <!-- Table / Desk -->
+
                 <Button
                     android:id="@+id/make_bed"
                     android:layout_width="match_parent"
                     android:layout_height="84dp"
-                    android:text="■  Bed"
-                    android:textSize="20sp"
-                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="22dp"
                     android:background="@drawable/retro_button"
-                    android:layout_marginBottom="22dp" />
+                    android:text="Bed"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
 
-                <!-- Table / Desk -->
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="317dp"
+                    android:layout_height="118dp"
+                    app:srcCompat="@mipmap/ic_launcher" />
+
                 <Button
                     android:id="@+id/table_desk"
                     android:layout_width="match_parent"
                     android:layout_height="84dp"
-                    android:text="■  Table / Desk"
-                    android:textSize="20sp"
-                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="22dp"
                     android:background="@drawable/retro_button"
-                    android:layout_marginBottom="22dp" />
+                    android:text="Table / Desk"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
 
                 <!-- Dishes -->
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="295dp"
+                    android:layout_height="122dp"
+                    app:srcCompat="@mipmap/ic_launcher" />
+
                 <Button
                     android:id="@+id/dishes"
                     android:layout_width="match_parent"
                     android:layout_height="84dp"
-                    android:text="■  Dishes"
-                    android:textSize="20sp"
+                    android:background="@drawable/retro_button"
+                    android:text="Dishes"
                     android:textColor="#FFFFFF"
-                    android:background="@drawable/retro_button" />
+                    android:textSize="20sp" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
