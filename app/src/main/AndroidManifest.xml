@@ -31,6 +31,10 @@
         <!-- ✅ Task in progress (loading + timer) -->
         <activity android:name=".TaskInProgressActivity" />
 
+        <activity android:name=".UploadNewClean" />
+
+        <activity android:name=".ResultActivity" />
+
     </application>
 
 </manifest>

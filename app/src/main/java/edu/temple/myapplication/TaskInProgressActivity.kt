@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +14,15 @@ class TaskInProgressActivity : AppCompatActivity() {
     private lateinit var tvStatus: TextView
     private lateinit var tvTimer: TextView
     private lateinit var progress: ProgressBar
+
+    private lateinit var button : Button
     private var timer: CountDownTimer? = null
+
+    private fun openUploadNewClean(zone: String) {
+        val i = Intent(this, UploadNewClean::class.java)
+        i.putExtra("zone", zone)
+        startActivity(i)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +34,7 @@ class TaskInProgressActivity : AppCompatActivity() {
         tvStatus = findViewById(R.id.tvStatus)
         tvTimer  = findViewById(R.id.tvTimer)
         progress = findViewById(R.id.progress)
+        button = findViewById(R.id.button)
 
         // Initial loading state (2s), then start the timer
         tvStatus.text = "Preparing your session…"
@@ -38,6 +48,10 @@ class TaskInProgressActivity : AppCompatActivity() {
             progress.progress = 0
             startTenMinuteTimer()
         }, 2000)
+
+        button.setOnClickListener {
+            stoptenMinuteTimer()
+            openUploadNewClean("Bed") }
     }
 
     private fun startTenMinuteTimer() {
@@ -68,6 +82,9 @@ class TaskInProgressActivity : AppCompatActivity() {
                 finish()
             }
         }.start()
+    }
+    private fun stoptenMinuteTimer() {
+        timer?.cancel()
     }
 
     override fun onDestroy() {
