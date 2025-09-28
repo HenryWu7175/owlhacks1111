@@ -3,9 +3,11 @@ package edu.temple.myapplication
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 
@@ -21,13 +23,16 @@ class UploadActivity : AppCompatActivity() {
     private val pickImage = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri ->
-        uri ?: return@registerForActivityResult
+        uri ?: run {
+            Toast.makeText(this, "No image selected.", Toast.LENGTH_SHORT).show()
+            return@registerForActivityResult
+        }
         imgPreview.setImageURI(uri)
-
-        if (!expectAfter) {
             // ✅ This is the clean reference upload
             ZoneStorage.saveReference(this, zone, uri)
-            tvInfo.text = "Reference saved! Starting timer..."
+        Log.d("UploadActivity", "Reference saved for $zone: $uri")
+
+        tvInfo.text = "Reference saved! Starting timer..."
 
             // 🚀 Go to the 10-minute task screen
             startActivity(
@@ -35,7 +40,6 @@ class UploadActivity : AppCompatActivity() {
                     .putExtra("zone", zone)
             )
             finish()
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +47,6 @@ class UploadActivity : AppCompatActivity() {
         setContentView(R.layout.activity_upload)
 
         zone = intent.getStringExtra("zone") ?: "Unknown"
-        expectAfter = intent.getBooleanExtra("expectAfter", false)
 
         tvZone = findViewById(R.id.tvZone)
         tvInfo = findViewById(R.id.tvInfo)
