@@ -11,50 +11,49 @@ class ChatbotActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Must match the XML file name below
-        setContentView(R.layout.activity_result)
+        setContentView(R.layout.activity_result) // ✅ Make sure XML name matches
 
         val title = findViewById<TextView>(R.id.textView)
         val input = findViewById<EditText>(R.id.textView2)
-        val btnSubmit = findViewById<Button>(R.id.buttonSubmit)     // "Go"
-        val btnExamples = findViewById<Button>(R.id.buttonExamples) // "See Examples"
+        val btnSubmit = findViewById<Button>(R.id.buttonSubmit)   // Go button
+        val btnExamples = findViewById<Button>(R.id.buttonExamples) // See examples
 
         title.text = "What productivity task would you like help with today?"
 
-        // "See Examples" → go to main picker screen (Bed / Desk / Dishes)
+        // “See Examples” → goes to main picker
         btnExamples.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-        // "Go" → route by keywords; if empty or no match, open main picker
+        // “Go” → keyword detection or fallback
         btnSubmit.setOnClickListener {
             val text = input.text?.toString()?.trim().orEmpty()
 
+            // If empty, send to main menu
             if (text.isEmpty()) {
                 startActivity(Intent(this, MainActivity::class.java))
                 return@setOnClickListener
             }
 
+            // Detect zone
             when (val zone = detectZone(text)) {
-                null -> startActivity(Intent(this, MainActivity::class.java)) // no match → manual pick
-                else -> startActivity(
-                    Intent(this, UploadActivity::class.java).putExtra("zone", zone)
-                )
+                null -> startActivity(Intent(this, MainActivity::class.java))
+                else -> startActivity(Intent(this, UploadActivity::class.java).putExtra("zone", zone))
             }
         }
     }
 
-    /**
-     * Very forgiving keyword detector:
-     * - contains "dish" → Dishes
-     * - contains "desk" or "tabl" → Desk
-     * - contains "bed" or "bedd" → Bed
-     */
+    // ✅ Updated detector with “kitchen” → Dishes
     private fun detectZone(raw: String): String? {
         val t = raw.lowercase()
 
-        if ("dish" in t) return "Dishes"
+        // Dishes zone
+        if ("dish" in t || "kitchen" in t || "sink" in t) return "Dishes"
+
+        // Desk / Table zone
         if ("desk" in t || "tabl" in t) return "Desk"
+
+        // Bed zone
         if ("bed" in t || "bedd" in t) return "Bed"
 
         return null
