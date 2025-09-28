@@ -26,7 +26,7 @@ class UploadNewClean : AppCompatActivity() {
                     Scoring.loadBitmap(this, refUri),
                     Scoring.loadBitmap(this, uri)
                 )
-                if (score >= 65) {
+                if (score >= .92) {
                     tvInfo.text = "✅ Looks good! +10 points!"
                     PointsManager.add(this, 10)
                 } else {

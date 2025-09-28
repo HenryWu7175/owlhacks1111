@@ -35,23 +35,6 @@ class UploadActivity : AppCompatActivity() {
                     .putExtra("zone", zone)
             )
             finish()
-        } else {
-            // ✅ After photo upload → compare with reference
-            val refUri = ZoneStorage.getReference(this, zone)
-            if (refUri != null) {
-                val score = Scoring.score(
-                    Scoring.loadBitmap(this, refUri),
-                    Scoring.loadBitmap(this, uri)
-                )
-                if (score >= 65) {
-                    tvInfo.text = "✅ Looks good! +10 points!"
-                    PointsManager.add(this, 10)
-                } else {
-                    tvInfo.text = "❌ Not quite right, try again!"
-                }
-            } else {
-                tvInfo.text = "⚠️ No reference found!"
-            }
         }
     }
 
